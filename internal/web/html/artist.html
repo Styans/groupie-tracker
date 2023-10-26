@@ -1,0 +1,30 @@
+{{define "artist"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <img src="{{.Image}}" alt="">
+        <h1>
+            {{.Name}}
+        </h1>
+        <h2>CreationDate:</h2>
+        <p>{{.CreationDate}}</p>
+        <h2>FirstAlbum:</h2>
+        <p>{{.FirstAlbum}}</p>
+        
+        <h2>Members:</h2>
+        {{range $members := .Members}}
+        <div>
+            {{$members}}
+        </div>
+        {{end}}
+       
+    </div>
+</body>
+</html>
+{{end}}

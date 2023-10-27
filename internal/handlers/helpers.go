@@ -15,8 +15,8 @@ func (app *Aplication) Route() *http.ServeMux {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", app.mainPage)
 	mux.HandleFunc("/artist", app.artistPage)
-	styles := http.FileServer(http.Dir("./internal/web/css"))
-	mux.Handle("/static/", http.StripPrefix("/static", styles))
+	styles := http.FileServer(http.Dir("./internal/web/ui/"))
+	mux.Handle("/static/", http.StripPrefix("/static/", styles))
 	return mux
 }
 

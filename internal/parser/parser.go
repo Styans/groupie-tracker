@@ -14,21 +14,21 @@ func Parse() ([]Artists, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close()
 	loc, err := client.Get("https://groupietrackers.herokuapp.com/api/locations")
 	if err != nil {
 		return nil, err
 	}
+	defer loc.Body.Close()
 	date, err := client.Get("https://groupietrackers.herokuapp.com/api/dates")
 	if err != nil {
 		return nil, err
 	}
+	defer date.Body.Close()
 	rel, err := client.Get("https://groupietrackers.herokuapp.com/api/relation")
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
-	defer loc.Body.Close()
-	defer date.Body.Close()
 	defer rel.Body.Close()
 
 	var artists []Artists

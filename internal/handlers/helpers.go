@@ -21,6 +21,7 @@ func (app *Aplication) Route() *http.ServeMux {
 }
 
 func (app *Aplication) errors(w http.ResponseWriter, problem int) {
+	w.WriteHeader(problem)
 	tmlp := template.Must(template.ParseFiles("./internal/web/html/error.html"))
 	e := "problem is " + strconv.Itoa(problem)
 	tmlp.Execute(w, e)

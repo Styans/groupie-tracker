@@ -33,6 +33,7 @@ func (app *Aplication) artistPage(w http.ResponseWriter, r *http.Request) {
 	}
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil || id < 1 || id > 52 {
+		
 		app.errors(w, http.StatusNotFound)
 		return
 	}

@@ -23,7 +23,12 @@
             {{$members}}
         </div>
         {{end}}
-       
+        <h2>Locations:</h2>
+        {{range $location := .Locations.Locations}}
+        <div>
+            {{$location}}
+        </div>
+        {{end}}
     </div>
 </body>
 </html>

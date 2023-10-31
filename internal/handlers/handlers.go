@@ -12,16 +12,21 @@ func (app *Aplication) mainPage(w http.ResponseWriter, r *http.Request) {
 		app.errors(w, http.StatusNotFound)
 		return
 	}
+
 	if r.Method != http.MethodGet {
 		w.Header().Set("Allow", http.MethodGet)
 		app.errors(w, http.StatusMethodNotAllowed)
 		return
 	}
 
-	tmlp := template.Must(template.ParseFiles("./internal/web/html/index.html"))
-	err := tmlp.ExecuteTemplate(w, "index", app.Models)
+	tmlp, err := template.ParseFiles("./internal/web/html/index.html")
 	if err != nil {
-		app.errors(w, http.StatusNotFound)
+		app.errors(w, http.StatusBadGateway)
+		return
+	}
+	err = tmlp.ExecuteTemplate(w, "index", app.Models)
+	if err != nil {
+		app.errors(w, http.StatusInternalServerError)
 		return
 	}
 }
@@ -33,7 +38,7 @@ func (app *Aplication) artistPage(w http.ResponseWriter, r *http.Request) {
 	}
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil || id < 1 || id > 52 {
-		
+
 		app.errors(w, http.StatusNotFound)
 		return
 	}

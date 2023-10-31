@@ -22,7 +22,11 @@ func (app *Aplication) Route() *http.ServeMux {
 
 func (app *Aplication) errors(w http.ResponseWriter, problem int) {
 	w.WriteHeader(problem)
-	tmlp := template.Must(template.ParseFiles("./internal/web/html/error.html"))
+	tmlp, err := template.ParseFiles("./internal/web/html/error.html")
+	if err != nil {
+		http.Error(w, err.Error(), problem)
+		return
+	}
 	e := "problem is " + strconv.Itoa(problem)
 	tmlp.Execute(w, e)
 

@@ -1,10 +1,15 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
+	"grupie-tracker/internal/parser"
 	"html/template"
+	"index/suffixarray"
 	"net/http"
+	"regexp"
 	"strconv"
+	"strings"
 )
 
 func (app *Aplication) mainPage(w http.ResponseWriter, r *http.Request) {
@@ -51,4 +56,60 @@ func (app *Aplication) artistPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+}
+
+func (app *Aplication) search(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/search" {
+		return
+	}
+
+	inp := r.URL.Query().Get("text")
+
+	var matchingModels []parser.Artists
+
+	for _, x := range app.Models {
+		if strings.Contains(inp, x.Name) {
+			matchingModels = append(matchingModels, x)
+		}
+		if containArray(inp, x.Members) {
+			matchingModels = append(matchingModels, x)
+		}
+	}
+
+	if len(matchingModels) == 0 {
+		http.Error(w, "Not Found", http.StatusNotFound)
+	}
+
+	jsonData, err := json.Marshal(matchingModels)
+	if err != nil {
+		http.Error(w, "Error encoding JSON", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+
+	w.Write(jsonData)
+}
+
+func containArray(str string, subStrs []string) bool {
+	if len(subStrs) == 0 {
+		return true
+	}
+	r := regexp.MustCompile(strings.Join(subStrs, "|"))
+	index := suffixarray.New([]byte(str))
+	res := index.FindAllIndex(r, -1)
+	exists := make(map[string]int)
+	for _, v := range subStrs {
+		exists[v] = 1
+	}
+	for _, pair := range res {
+		s := str[pair[0]:pair[1]]
+		exists[s] = exists[s] + 1
+	}
+	for _, v := range exists {
+		if v == 1 {
+			return false
+		}
+	}
+	return true
 }

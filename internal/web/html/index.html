@@ -5,61 +5,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="./static/ui/css/style.css">
+    <script src="../static/script.js" defer></script>
     <title>GRORPIE-TRACKER</title>
 </head>
 <body>
-    <input id="search" type="text">
-    
+    <input id="search" type="text" oninput="handleSearch()">
+    <div id="search-results" class="search-results"></div>
     <div class="wrapper">
         <h1 class="title center">
             Groupie-Tracker
         </h1>
         <div id="artist-container">
             {{range .}}
-            <a href="/artist?id={{.Id}}">
-                <img src="{{.Image}}" class="image" alt="image">
+            <a href="/artist?id={{.Id}}" id="{{.Id}}">
+                <img src="{{.Image}}" class="image" alt="{{.Name}}">
             </a>
             {{end}}
         </div>
+
+        <!-- Display search results -->
     </div>
-
-    <script>
-        const searchInput = document.getElementById('search');
-        const artistContainer = document.getElementById('artist-container');
-        const tmpC = artistContainer
-        searchInput.addEventListener('input', () => {
-            // Fetch data based on the input value
-            const inputValue = searchInput.value;
-
-            // You can customize the URL and other parameters based on your API endpoint
-            const apiUrl = `/search?text=${inputValue}`;
-
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    artistContainer.innerHTML = '';
-                    // console.log(data);
-                    // Render the new data
-                    data.forEach(artist => {
-                        console.log(artist);
-                        const artistLink = document.createElement('a');
-                        artistLink.href = `/artist?id=${artist.id}`;
-
-                        const artistImage = document.createElement('img');
-                        artistImage.src = artist.image;
-                        artistImage.className = 'image';
-                        artistImage.alt = 'image';
-
-                        artistLink.appendChild(artistImage);
-                        artistContainer.appendChild(artistLink);
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                });
-        });
-    </script>
+    
+    
+    
+    
 </body>
 </html>
 {{end}}

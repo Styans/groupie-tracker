@@ -2,10 +2,25 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Granty';
-    src: url('GrantyRegular.woff2') format('woff2'), /* Modern Browsers */
-         url('GrantyRegular.otf') format('opentype'); /* Safari, Android, iOS */
-             font-style: normal;
-    font-weight: normal;
-    text-rendering: optimizeLegibility;
+}
+
+.artist-link {
+    background-color: #333333;
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    /* max-width: 173px; */
+    width: 100%;
+   
+}
+.search-results {
+    max-width: 173px;
+    display: block;
+    /* background-color: #000; */
+}
+.artist-list-item {
+    text-decoration: none;
+    list-style-type: none;
+    max-width: 173px;
+    /* width: 100%; */
 }

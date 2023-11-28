@@ -77,7 +77,7 @@ func (app *Aplication) search(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(matchingModels) == 0 {
-		http.Error(w, "Not Found", http.StatusNotFound)
+		// http.Error(w, "Not Found", http.StatusNotFound)
 	}
 
 	jsonData, err := json.Marshal(matchingModels)

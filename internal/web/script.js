@@ -55,3 +55,19 @@ function showArtists() {
         artistLinks[i].style.display = "";
     }
 }
+
+
+const dateValue = document.querySelector("#dateOutput");
+const dateInput = document.querySelector("#creationDate");
+dateValue.textContent = dateInput.value;
+dateInput.addEventListener("input", (event) => {
+  dateValue.textContent = event.target.value;
+});
+
+
+const value = document.querySelector("#albumOutput");
+const input = document.querySelector("#firstAlbum");
+value.textContent = input.value;
+input.addEventListener("input", (event) => {
+  value.textContent = event.target.value;
+});

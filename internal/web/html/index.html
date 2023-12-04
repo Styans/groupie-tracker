@@ -1,35 +1,87 @@
 {{define "index"}}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./static/ui/css/style.css">
-    <script src="../static/script.js" defer></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, 
+        initial-scale=1.0"
+    />
+    <link rel="stylesheet" href="./static/ui/css/style.css" />
     <title>GRORPIE-TRACKER</title>
-</head>
-<body>
-    <input id="search" type="text" oninput="handleSearch()">
-    <div id="search-results" class="search-results"></div>
-    <div class="wrapper">
-        <h1 class="title center">
-            Groupie-Tracker
-        </h1>
-        <div id="artist-container">
-            {{range .}}
-            <a href="/artist?id={{.Id}}" id="{{.Id}}">
-                <img src="{{.Image}}" class="image" alt="{{.Name}}">
-            </a>
-            {{end}}
+  </head>
+  <body>
+    <header class="header">
+      <input id="search" type="text" oninput="handleSearch()" />
+      <div id="search-results" class="search-results"></div>
+      <form action="#" method="post" enctype="multipart/form-data">
+        <div class="range_date">
+          <div>
+            <input
+              type="range"
+              name="creationDate"
+              id="creationDate"
+              min="0"
+              max="100"
+              value="90"
+              step="1"
+            />
+            <p>Creation date: <span id="dateOutput"></span></p>
+          </div>
+          <div>
+            <input
+              type="range"
+              name="firstAlbum"
+              id="firstAlbum"
+              min="0"
+              max="100"
+              value="90"
+              step="1"
+            />
+            <p>First album date: <span id="albumOutput"></span></p>
+          </div>
         </div>
+        <div class="number_filter">
+          <div class="checkbox">
+            <input type="checkbox" name="1" value="1" />1
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" name="2" value="2" />2
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" name="3" value="3" />3
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" name="4" value="4" />4
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" name="5" value="5" />5
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" name="6" value="6" />6
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" name="7" value="7" />7
+          </div>
+        </div>
+      </form>
+    </header>
+    <div class="wrapper">
+      <h1 class="title center">Groupie-Tracker</h1>
 
-        <!-- Display search results -->
+      <div id="artist-container">
+        {{range .}}
+        <a href="/artist?id={{.Id}}" id="{{.Id}}">
+          <img src="{{.Image}}" class="image" alt="{{.Name}}" />
+        </a>
+        {{end}}
+      </div>
+
+      <!-- Display search results -->
     </div>
-    
-    
-    
-    
-</body>
+  </body>
+  <script src="../static/script.js" defer></script>
 </html>
 {{end}}

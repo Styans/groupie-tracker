@@ -16,6 +16,8 @@
 .search-results {
     max-width: 173px;
     display: block;
+    /* max-height:  200px; */
+    
     /* background-color: #000; */
 }
 .artist-list-item {
